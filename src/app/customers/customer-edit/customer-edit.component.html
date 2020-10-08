@@ -1,0 +1,51 @@
+<div class="mt-4" *ngIf="customer$ | async">
+  <h3>Editar cliente</h3>
+  <form
+    [formGroup]="customerForm"
+    (submit)="updateCustomer()"
+    class="form-inline mb-4"
+  >
+    <label class="sr-only" for="Name">Nombre</label>
+    <div class="input-group mb-2 mr-sm-2">
+      <input
+        type="text"
+        class="form-control"
+        formControlName="name"
+        placeholder="name"
+      />
+    </div>
+
+    <label class="sr-only" for="Phone">Teléfono</label>
+    <div class="input-group mb-2 mr-sm-2">
+      <input
+        type="text"
+        class="form-control"
+        formControlName="phone"
+        placeholder="Phone"
+      />
+    </div>
+
+    <label class="sr-only" for="Address">Dirección</label>
+    <div class="input-group mb-2 mr-sm-2">
+      <input
+        type="text"
+        class="form-control"
+        formControlName="address"
+        placeholder="Address"
+      />
+    </div>
+
+    <label class="sr-only" for="membership">Membresía</label>
+    <div class="input-group mb-2 mr-sm-2">
+      <select formControlName="membership" class="form-control">
+        <option>Basic</option>
+        <option>Pro</option>
+        <option>Platinum</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary mb-2">
+      Actualizar cliente
+    </button>
+  </form>
+</div>

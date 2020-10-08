@@ -1,0 +1,18 @@
+{
+  "customers": [
+    {
+      "name": "John Doe",
+      "phone": "11111111",
+      "address": "123 Calle falsa",
+      "membership": "Basic",
+      "id": 1
+    },
+    {
+      "name": "John Undoe",
+      "phone": "22222222",
+      "address": "123 Calle real",
+      "membership": "Pro",
+      "id": 2
+    }
+  ]
+}
