@@ -7,8 +7,7 @@ import { Customer } from "./customer.model";
   providedIn: "root",
 })
 export class CustomerService {
-  private customersUrl =
-    "https://my-json-server.typicode.com/benito-b/ngrx-store-practice";
+  private customersUrl = "https://51.75.163.52:3000/customers";
 
   constructor(private http: HttpClient) {}
 
