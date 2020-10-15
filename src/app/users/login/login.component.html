@@ -1,0 +1,56 @@
+<div class="container-fluid d-flex justify-content-center">
+  <div *ngIf="userLoggedIn$ | async">Bienvenido, usuario!</div>
+  <div *ngIf="!(userLoggedIn$ | async)" class="card text-center w-50">
+    <div class="card-header">Login</div>
+    <div class="card-body">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label class="float-left pl-1">Usuario</label>
+          <input
+            type="text"
+            [class.is-invalid]="
+              loginForm.get('username').invalid &&
+              loginForm.get('username').touched
+            "
+            class="form-control"
+            formControlName="username"
+          />
+          <small
+            [class.d-none]="
+              loginForm.get('username').valid ||
+              loginForm.get('username').untouched
+            "
+            class="text-danger float-left pl-1"
+            >Debes introducir un nombre de usuario!</small
+          >
+        </div>
+        <div class="form-group">
+          <label class="float-left pl-1">Contraseña</label>
+          <input
+            type="password"
+            [class.is-invalid]="
+              loginForm.get('password').invalid &&
+              loginForm.get('password').touched
+            "
+            class="form-control"
+            formControlName="password"
+          />
+          <small
+            [class.d-none]="
+              loginForm.get('password').valid ||
+              loginForm.get('password').untouched
+            "
+            class="text-danger float-left pl-1"
+            >Debes introducir una contraseña!</small
+          >
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+    </div>
+    <div class="card-footer">
+      <span class="text-muted mt-3">
+        Cualquier combinación de usuario/contraseña funciona
+      </span>
+    </div>
+  </div>
+</div>
