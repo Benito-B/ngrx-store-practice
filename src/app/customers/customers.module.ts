@@ -10,8 +10,11 @@ import { customerReducer } from "./state/customer.reducer";
 import { EffectsModule } from "@ngrx/effects";
 import { CustomerEffect } from "./state/customer.effects";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { AuthGuard } from "../guards/auth.guard";
 
-const customerRoutes: Routes = [{ path: "", component: CustomerComponent }];
+const customerRoutes: Routes = [
+  { path: "", component: CustomerComponent, canActivate: [AuthGuard] },
+];
 
 @NgModule({
   declarations: [
@@ -23,7 +26,6 @@ const customerRoutes: Routes = [{ path: "", component: CustomerComponent }];
   imports: [
     CommonModule,
     RouterModule.forChild(customerRoutes),
-    StoreModule.forFeature("customers", customerReducer),
     EffectsModule.forFeature([CustomerEffect]),
     ReactiveFormsModule,
     FormsModule,

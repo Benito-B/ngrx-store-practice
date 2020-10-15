@@ -25,7 +25,9 @@ export class CustomerEffect {
           (customers: Customer[]) =>
             new customerActions.LoadCustomersSuccess(customers)
         ),
-        catchError((err) => of(new customerActions.LoadCustomersFailure(err)))
+        catchError((err) =>
+          of(new customerActions.LoadCustomersFailure(err.message))
+        )
       )
     )
   );
@@ -41,7 +43,9 @@ export class CustomerEffect {
           (customer: Customer) =>
             new customerActions.LoadCustomerSuccess(customer)
         ),
-        catchError((err) => of(new customerActions.LoadCustomerFailure(err)))
+        catchError((err) =>
+          of(new customerActions.LoadCustomerFailure(err.message))
+        )
       )
     )
   );
@@ -58,7 +62,9 @@ export class CustomerEffect {
           (newCustomer: Customer) =>
             new customerActions.CreateCustomerSuccess(newCustomer)
         ),
-        catchError((err) => of(new customerActions.CreateCustomerFailure(err)))
+        catchError((err) =>
+          of(new customerActions.CreateCustomerFailure(err.message))
+        )
       )
     )
   );
