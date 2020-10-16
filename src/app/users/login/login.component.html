@@ -8,18 +8,12 @@
           <label class="float-left pl-1">Usuario</label>
           <input
             type="text"
-            [class.is-invalid]="
-              loginForm.get('username').invalid &&
-              loginForm.get('username').touched
-            "
+            [class.is-invalid]="username.invalid && username.touched"
             class="form-control"
             formControlName="username"
           />
           <small
-            [class.d-none]="
-              loginForm.get('username').valid ||
-              loginForm.get('username').untouched
-            "
+            [class.d-none]="username.valid || username.untouched"
             class="text-danger float-left pl-1"
             >Debes introducir un nombre de usuario!</small
           >
@@ -28,18 +22,12 @@
           <label class="float-left pl-1">Contraseña</label>
           <input
             type="password"
-            [class.is-invalid]="
-              loginForm.get('password').invalid &&
-              loginForm.get('password').touched
-            "
+            [class.is-invalid]="password.invalid && password.touched"
             class="form-control"
             formControlName="password"
           />
           <small
-            [class.d-none]="
-              loginForm.get('password').valid ||
-              loginForm.get('password').untouched
-            "
+            [class.d-none]="password.valid || password.untouched"
             class="text-danger float-left pl-1"
             >Debes introducir una contraseña!</small
           >

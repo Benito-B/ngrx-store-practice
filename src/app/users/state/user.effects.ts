@@ -6,6 +6,7 @@ import { Observable, of } from "rxjs";
 import { UserService } from "../user.service";
 import * as userActions from "../state/user.actions";
 import { User } from "../user.model";
+import { LoggedUser } from "../logged-user.model";
 
 @Injectable()
 export class UserEffect {
@@ -18,7 +19,8 @@ export class UserEffect {
     mergeMap((user: User) =>
       this.userService.loginUser(user).pipe(
         map(
-          (token: string) => new userActions.LoginUserSuccess(token),
+          (loggedUser: LoggedUser) =>
+            new userActions.LoginUserSuccess(loggedUser),
           catchError((err) => of(new userActions.LoginUserFailure(err.message)))
         )
       )

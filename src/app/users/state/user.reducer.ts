@@ -1,9 +1,10 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import * as fromRoot from "../../state/app-state";
+import { LoggedUser } from "../logged-user.model";
 import * as userActions from "./user.actions";
 
 export interface UserState {
-  token: string | null;
+  loggedUser: LoggedUser | null;
   loggedIn: boolean;
 }
 
@@ -12,7 +13,7 @@ export interface AppState extends fromRoot.AppState {
 }
 
 const initialState = {
-  token: null,
+  loggedUser: null,
   loggedIn: false,
 };
 
@@ -24,25 +25,29 @@ export function userReducer(
     case userActions.UserActionTypes.LOGIN_USER_SUCCESS: {
       return {
         ...state,
-        token: action.payload.token,
+        loggedUser: action.payload,
         loggedIn: true,
       };
     }
     case userActions.UserActionTypes.LOGIN_USER_FAILURE: {
       return {
         ...state,
-        token: null,
+        loggedUser: null,
         loggedIn: false,
       };
     }
     case userActions.UserActionTypes.LOGOUT_USER: {
       return {
         ...state,
-        token: null,
+        loggedUser: null,
         loggedIn: false,
       };
     }
     default: {
+      const storedState = localStorage.getItem("userState");
+      if (storedState) {
+        state = JSON.parse(storedState);
+      }
       return state;
     }
   }
@@ -50,9 +55,9 @@ export function userReducer(
 
 const getUserFeature = createFeatureSelector<UserState>("user");
 
-export const getToken = createSelector(
+export const getLoggedUser = createSelector(
   getUserFeature,
-  (state: UserState) => state.token
+  (state: UserState) => state.loggedUser
 );
 
 export const isUserLoggedIn = createSelector(

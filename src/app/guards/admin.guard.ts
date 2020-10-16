@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import * as fromUser from "../users/state/user.reducer";
 import {
   CanActivate,
   ActivatedRouteSnapshot,
@@ -7,18 +6,19 @@ import {
   UrlTree,
   Router,
 } from "@angular/router";
-import { select, Store } from "@ngrx/store";
+import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
+import { LoggedUser } from "../users/logged-user.model";
+import * as fromUser from "../users/state/user.reducer";
 
 @Injectable({
   providedIn: "root",
 })
-export class AuthGuard implements CanActivate {
-  userLoggedIn$: Observable<boolean>;
-
+export class AdminGuard implements CanActivate {
+  loggedUser$: Observable<LoggedUser>;
   constructor(private store: Store<fromUser.AppState>, private router: Router) {
-    this.userLoggedIn$ = this.store.select(fromUser.isUserLoggedIn);
+    this.loggedUser$ = this.store.select(fromUser.getLoggedUser);
   }
 
   canActivate(
@@ -29,13 +29,12 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.userLoggedIn$.pipe(
-      map((loggedIn) => {
-        if (!loggedIn) {
-          this.router.navigate(["/users/login"]);
-          return false;
+    return this.loggedUser$.pipe(
+      map((loggedUser) => {
+        if (loggedUser && loggedUser.isAdmin) {
+          return true;
         }
-        return true;
+        return false;
       })
     );
   }

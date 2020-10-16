@@ -1,6 +1,7 @@
 import { Action } from "@ngrx/store";
 import { User } from "../user.model";
 import { Update } from "@ngrx/entity";
+import { LoggedUser } from "../logged-user.model";
 
 export enum UserActionTypes {
   LOGIN_USER = "[USER] Login User",
@@ -18,7 +19,7 @@ export class LoginUser implements Action {
 
 export class LoginUserSuccess implements Action {
   readonly type = UserActionTypes.LOGIN_USER_SUCCESS;
-  constructor(public payload: any) {}
+  constructor(public payload: LoggedUser) {}
 }
 
 export class LoginUserFailure implements Action {
